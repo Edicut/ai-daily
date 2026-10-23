@@ -9,8 +9,14 @@
       "meaning": "个人：别把身份证号、合同、客户资料、公司代码随手发给来路不明的第三方 AI 平台，用过 302.ai 的可以去删掉历史记录、改密码。企业：员工用哪些 AI 工具要有清单，敏感资料只走签过协议的官方渠道。",
       "credibility": "报道",
       "sources": [
-        {"name": "Cybernews 调查", "url": "https://cybernews.com/security/302-ai-data-leak-exposed-millions-files/"},
-        {"name": "TechRadar 报道", "url": "https://www.techradar.com/pro/security/security-breach-at-ai-aggregator-exposes-over-18-million-files-including-some-very-embarrassing-chat-records"}
+        {
+          "name": "Cybernews 调查",
+          "url": "https://cybernews.com/security/302-ai-data-leak-exposed-millions-files/"
+        },
+        {
+          "name": "TechRadar 报道",
+          "url": "https://www.techradar.com/pro/security/security-breach-at-ai-aggregator-exposes-over-18-million-files-including-some-very-embarrassing-chat-records"
+        }
       ]
     },
     {
@@ -19,7 +25,10 @@
       "meaning": "「让 AI 帮我买」正在变成真事。做电商、零售的企业要开始想：以后来下单的可能不是人，而是顾客的 AI 助手，商品信息要写得让 AI 看得懂、比得清。个人：用这类功能时一定先设好消费上限。",
       "credibility": "报道",
       "sources": [
-        {"name": "TechCrunch 报道", "url": "https://techcrunch.com/2026/10/21/while-amazon-blocks-ai-agents-walmart-rolls-out-the-welcome-mat/"}
+        {
+          "name": "TechCrunch 报道",
+          "url": "https://techcrunch.com/2026/10/21/while-amazon-blocks-ai-agents-walmart-rolls-out-the-welcome-mat/"
+        }
       ]
     },
     {
@@ -28,7 +37,10 @@
       "meaning": "AI 助手正在从「每步都请示」变成「自己干、出事前才拦」。个人：让 AI 动你的文件、邮箱、账号前，先想清楚给了它哪些权限；不放心就切回手动。企业管理员可以在后台统一关掉自动模式。",
       "credibility": "官方",
       "sources": [
-        {"name": "Claude 官方 X 帖子", "url": "https://x.com/claudeai/status/2113360845409583307"}
+        {
+          "name": "Claude 官方 X 帖子",
+          "url": "https://x.com/claudeai/status/2113360845409583307"
+        }
       ]
     },
     {
@@ -37,7 +49,10 @@
       "meaning": "大公司用 AI 已经从「几个部门试一试」变成「全员发账号」。中小企业不用跟风买最贵的，但可以学这个路子：先找一个部门小范围试，把有效的用法记下来，再推广。个人：会不会用 AI 办公，正在变成基本功。",
       "credibility": "官方",
       "sources": [
-        {"name": "OpenAI 案例", "url": "https://openai.com/index/uber-chatgpt-work-rollout/"}
+        {
+          "name": "OpenAI 案例",
+          "url": "https://openai.com/index/uber-chatgpt-work-rollout/"
+        }
       ]
     },
     {
@@ -46,7 +61,10 @@
       "meaning": "企业里很多 AI 活其实是选择题：这条客服消息该转给谁、这封邮件是不是垃圾、这张图属于哪一类。这类任务不必用最贵的大模型，用这种专门的小接口更快更省钱。有技术团队的公司可以拿现有流程算一笔账。",
       "credibility": "报道",
       "sources": [
-        {"name": "TechCrunch 报道", "url": "https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/"}
+        {
+          "name": "TechCrunch 报道",
+          "url": "https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/"
+        }
       ]
     },
     {
@@ -55,8 +73,24 @@
       "meaning": "继前两天 AI 帮忙找出 PHP 漏洞之后，AI 查代码安全又往前走了一步：以前只有银行、航天才舍得做的严格验证，成本正在大幅下降。企业：老系统的安全检查可以考虑交给 AI 先过一遍，但结论仍要专业人员把关。",
       "credibility": "官方",
       "sources": [
-        {"name": "Anthropic 研究博客", "url": "https://www.anthropic.com/research/formal-verification"}
+        {
+          "name": "Anthropic 研究博客",
+          "url": "https://www.anthropic.com/research/formal-verification"
+        }
+      ]
+    },
+    {
+      "title": "Google Meet 开会实时翻译扩到 63 种语言",
+      "what": "谷歌 10 月 22 日宣布：Google Meet 里由 Gemini 驱动的实时语音翻译支持 63 种语言，网页、手机和会议室设备都能用。系统自动听出对方说什么语言，再用你设定的语言念给你听，同时出字幕。Workspace 商业版、企业版和 Google AI Pro/Ultra 个人用户可用，部分企业 11 月 2 日起陆续开通。",
+      "meaning": "跨语言开会的门槛在快速降低。做外贸、跨境电商、有海外客户的企业，可以先拿内部会议试一试翻译准不准，再用到客户沟通；合同、价格这类关键内容仍要人工确认。个人：会一门外语依然有用，但「听不懂就开不了会」正在成为过去。",
+      "credibility": "官方",
+      "sources": [
+        {
+          "name": "Google Workspace 更新博客",
+          "url": "https://workspaceupdates.googleblog.com/"
+        }
       ]
     }
-  ]
+  ],
+  "updated": "12:55"
 }
