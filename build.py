@@ -64,6 +64,8 @@ nav.days a:hover{border-color:var(--a1);text-decoration:none}
 nav.days span.off{opacity:.35}
 nav.days input{font-size:13px;font-family:inherit;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg);color-scheme:dark light}
 .nodate{color:var(--muted);font-size:13px;text-align:center;margin:-20px 0 24px;min-height:1em}
+figure.pic{margin:4px 0 14px}figure.pic img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line)}
+figure.pic figcaption{font-size:12px;color:var(--muted);margin-top:6px}
 footer{margin-top:48px;color:var(--muted);font-size:12px;padding-top:16px;border-top:1px solid var(--line)}
 @media (max-width:520px){.row{grid-template-columns:1fr;gap:2px}.label{padding-top:0}.num{font-size:28px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -107,7 +109,15 @@ if(D.indexOf(d)<0){{document.getElementById("nodate").textContent=d+" 没有日�
 location.href=d===D[0]?up+"index.html":up+"d/"+d+".html"}})}})();</script>"""
 
 
-def day_body(p):
+def pic(it, up):
+    """每条可选配图：image 是仓库里的相对路径（img/YYYY-MM-DD/n.jpg），image_credit 写图片出处"""
+    if not it.get("image"):
+        return ""
+    cap = f"<figcaption>图：{html.escape(it.get('image_credit', ''))}</figcaption>" if it.get("image_credit") else ""
+    return f"<figure class='pic'><img src='{up}{html.escape(it['image'])}' alt='{html.escape(it['title'])}' loading='lazy'>{cap}</figure>"
+
+
+def day_body(p, up=""):
     E = html.escape
     out = [f"<div class='kicker mono'>{stamp(p['date'])} · {len(p['items'])} SIGNALS</div>",
            f"<h1>{E(p['title'])}</h1>",
@@ -118,7 +128,7 @@ def day_body(p):
         src = " · ".join(f"<a href='{E(s['url'])}' rel='noopener' target='_blank'>{E(s['name'])}</a>" for s in it.get("sources", []))
         c = it.get("credibility", "")
         out.append(f"""<article class="item"><span class="num mono">{n:02d}</span><h2>{E(it['title'])}</h2>
-<div class="row"><span class="label mono">What<b>发生了什么</b></span><p>{E(it['what'])}</p></div>
+{pic(it, up)}<div class="row"><span class="label mono">What<b>发生了什么</b></span><p>{E(it['what'])}</p></div>
 <div class="row"><span class="label mono">So what<b>意味着什么</b></span><p>{E(it['meaning'])}</p></div>
 <div class="src"><span class="cred c-{E(c)}"><i></i>{E(CRED.get(c, c))}</span>{'<span>来源：' + src + '</span>' if src else ''}</div></article>""")
     return "\n".join(out)
@@ -133,7 +143,7 @@ def main():
     dates = [p["date"] for p in posts]
     for p in posts:
         open(os.path.join(HERE, "d", p["date"] + ".html"), "w", encoding="utf-8").write(
-            page(f"{p['title']} · {SITE}", day_nav(p["date"], dates, 1) + day_body(p), 1))
+            page(f"{p['title']} · {SITE}", day_nav(p["date"], dates, 1) + day_body(p, "../"), 1))
     if posts:
         archive = "".join(f"<li><span class='d mono'>{stamp(p['date'])}</span><a href='d/{p['date']}.html'>{html.escape(p['title'])}</a></li>"
                           for p in posts[1:])
