@@ -58,6 +58,12 @@ h2.sec{font-size:13px;color:var(--muted);margin:48px 0 8px;font-weight:600}
 ul.archive{list-style:none;padding:0;margin:0}
 ul.archive li{display:flex;gap:14px;border-bottom:1px solid var(--line);padding:14px 0}
 ul.archive .d{color:var(--muted);font-size:13px;white-space:nowrap;padding-top:2px}
+nav.days{display:flex;align-items:center;justify-content:center;gap:10px;margin:-14px 0 30px;flex-wrap:wrap}
+nav.days a,nav.days span.off{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg)}
+nav.days a:hover{border-color:var(--a1);text-decoration:none}
+nav.days span.off{opacity:.35}
+nav.days input{font-size:13px;font-family:inherit;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg);color-scheme:dark light}
+.nodate{color:var(--muted);font-size:13px;text-align:center;margin:-20px 0 24px;min-height:1em}
 footer{margin-top:48px;color:var(--muted);font-size:12px;padding-top:16px;border-top:1px solid var(--line)}
 @media (max-width:520px){.row{grid-template-columns:1fr;gap:2px}.label{padding-top:0}.num{font-size:28px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -84,6 +90,23 @@ def stamp(d):
     return f"{y}.{m:02d}.{dd:02d} / {WEEK_EN[date(y, m, dd).weekday()]}"
 
 
+def day_nav(cur, dates, depth):
+    """dates：已有日报的日期，新到旧。前一天/后一天跳到相邻的那期，日期框可选任意一天"""
+    up = "../" * depth
+    i = dates.index(cur)
+    prev_d = dates[i + 1] if i + 1 < len(dates) else None
+    next_d = dates[i - 1] if i > 0 else None
+    link = lambda d: f"{up}index.html" if d == dates[0] else f"{up}d/{d}.html"
+    prev_html = f"<a href='{link(prev_d)}'>‹ 前一天</a>" if prev_d else "<span class='off'>‹ 前一天</span>"
+    next_html = f"<a href='{link(next_d)}'>后一天 ›</a>" if next_d else "<span class='off'>后一天 ›</span>"
+    return f"""<nav class="days">{prev_html}<input type="date" id="pick" value="{cur}" min="{dates[-1]}" max="{dates[0]}" aria-label="选择日期">{next_html}</nav>
+<div class="nodate" id="nodate"></div>
+<script>(function(){{var D={json.dumps(dates)},up="{up}",el=document.getElementById("pick");
+el.addEventListener("change",function(){{var d=el.value;if(!d)return;
+if(D.indexOf(d)<0){{document.getElementById("nodate").textContent=d+" 没有日报";el.value="{cur}";return}}
+location.href=d===D[0]?up+"index.html":up+"d/"+d+".html"}})}})();</script>"""
+
+
 def day_body(p):
     E = html.escape
     out = [f"<div class='kicker mono'>{stamp(p['date'])} · {len(p['items'])} SIGNALS</div>",
@@ -107,13 +130,14 @@ def main():
         posts.append(json.load(open(f, encoding="utf-8")))
     os.makedirs(os.path.join(HERE, "d"), exist_ok=True)
     open(os.path.join(HERE, "style.css"), "w", encoding="utf-8").write(CSS)
+    dates = [p["date"] for p in posts]
     for p in posts:
         open(os.path.join(HERE, "d", p["date"] + ".html"), "w", encoding="utf-8").write(
-            page(f"{p['title']} · {SITE}", day_body(p), 1))
+            page(f"{p['title']} · {SITE}", day_nav(p["date"], dates, 1) + day_body(p), 1))
     if posts:
         archive = "".join(f"<li><span class='d mono'>{stamp(p['date'])}</span><a href='d/{p['date']}.html'>{html.escape(p['title'])}</a></li>"
                           for p in posts[1:])
-        body = day_body(posts[0]) + (f"<h2 class='sec mono'>ARCHIVE · 往期</h2><ul class='archive'>{archive}</ul>" if archive else "")
+        body = day_nav(dates[0], dates, 0) + day_body(posts[0]) + (f"<h2 class='sec mono'>ARCHIVE · 往期</h2><ul class='archive'>{archive}</ul>" if archive else "")
         open(os.path.join(HERE, "index.html"), "w", encoding="utf-8").write(page(SITE, body))
     print(f"生成 {len(posts)} 天")
 

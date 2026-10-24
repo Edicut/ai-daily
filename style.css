@@ -44,6 +44,12 @@ h2.sec{font-size:13px;color:var(--muted);margin:48px 0 8px;font-weight:600}
 ul.archive{list-style:none;padding:0;margin:0}
 ul.archive li{display:flex;gap:14px;border-bottom:1px solid var(--line);padding:14px 0}
 ul.archive .d{color:var(--muted);font-size:13px;white-space:nowrap;padding-top:2px}
+nav.days{display:flex;align-items:center;justify-content:center;gap:10px;margin:-14px 0 30px;flex-wrap:wrap}
+nav.days a,nav.days span.off{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg)}
+nav.days a:hover{border-color:var(--a1);text-decoration:none}
+nav.days span.off{opacity:.35}
+nav.days input{font-size:13px;font-family:inherit;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--fg);color-scheme:dark light}
+.nodate{color:var(--muted);font-size:13px;text-align:center;margin:-20px 0 24px;min-height:1em}
 footer{margin-top:48px;color:var(--muted);font-size:12px;padding-top:16px;border-top:1px solid var(--line)}
 @media (max-width:520px){.row{grid-template-columns:1fr;gap:2px}.label{padding-top:0}.num{font-size:28px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
